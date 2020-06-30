@@ -1,0 +1,16 @@
+.app {
+  display: grid;
+  grid-template-areas: "h h" "n c";
+  grid-template-rows: 42px 1fr;
+  grid-template-columns: 160px 165px 1fr 160px;
+  margin: 0 auto;
+  background-color: #edeef0;
+}
+.content {
+  grid-area: c;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  padding-top: 15px;
+}
