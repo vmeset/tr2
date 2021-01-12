@@ -1,11 +1,11 @@
 import React from "react";
-import {profileAPI, uploadPhoto, usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 const UPDATE_STATUS = 'UPDATE_STATUS'
-const UPLOAD_PHOTO = 'UPLOAD_PHOTO'
+const UPDATE_PHOTO_SUCCES = 'UPDATE_PHOTO_SUCCES'
 
 let initialState = {
     posts: [
@@ -47,10 +47,10 @@ let profileReducer = (state = initialState, action) => {
                 status: action.status
             }
         }
-        case UPLOAD_PHOTO: {
+        case UPDATE_PHOTO_SUCCES: {
             return {
                 ...state,
-                avatar: action.newPhoto
+                profile: {...state.profile, photos: action.newPhoto}
             }
         }
         default: {
@@ -65,8 +65,7 @@ export const addPost = (post) => {
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
 export const updateStatus = (status) => ({type: UPDATE_STATUS, status})
-export const updatePhoto = (newPhoto) => ({type: UPLOAD_PHOTO, newPhoto})
-
+export const updatePhotoSuccess = (newPhoto) => ({type: UPDATE_PHOTO_SUCCES, newPhoto})
 export const profileThunk = (userId) => {
     return (dispatch) => {
         usersAPI.setUserProfile(userId).then(response => {
@@ -90,17 +89,12 @@ export const updateStatusThunk = (status) => {
         })
     }
 }
-
-export const uploadAvatar = (newPhoto) => (dispatch) => {
-    dispatch(updatePhoto(newPhoto))
-}
-
-export const uploadPhotoThunk = (newPhoto) => (dispatch) => {
+export const updatePhoto = (newPhoto) => (dispatch) => {
     profileAPI.uploadNewPhoto(newPhoto).then(response => {
         if(response.data.resultCode === 0) {
-            dispatch(updatePhoto(newPhoto))
+            dispatch(updatePhotoSuccess(response.data.data.photos))
         } else if (response.data.resultCode === 1){
-            console.log(response.data.messages)
+            alert(response.data.messages)
         }
     })
 }

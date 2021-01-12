@@ -6,8 +6,9 @@ import {Field, reduxForm} from "redux-form";
 import {maxLength, required} from "../utilities/validators";
 import {Textarea} from "../utilities/form-control";
 import Avatar from "./avatar/avatar";
+import ProfileInfo from "./info/profileInfo";
 
-const maxLength5 = maxLength(5)
+const maxLength5 = maxLength(50)
 
 const PostFrom = (props) => {
     return (
@@ -25,7 +26,6 @@ const PostFrom = (props) => {
 let PostReduxForm = reduxForm({form: 'post'})(PostFrom)
 
 const Profile = (props) => {
-
     let addPost = (values) => {
         props.addPost(values.post)
         values.post = ''
@@ -34,14 +34,14 @@ const Profile = (props) => {
     let posts = props.posts.map(el => <div className={styles.post}>{el.message}</div>)
 
     if (!props.profile) {
-        return (<Preloader/>)
+        return (<Preloader />)
     }
-
-
 
     return (
         <div className={styles.profile}>
-            <Avatar profile={props.profile} uploadAvatar={props.uploadAvatar} uploadPhotoThunk={props.uploadPhotoThunk} />
+            <Avatar isOwner={props.isOwner}
+                    profile={props.profile}
+                    updatePhoto={props.updatePhoto} />
             <div className={styles.profileAbout}>
                 <div>
                     <h1>
@@ -49,11 +49,12 @@ const Profile = (props) => {
                     </h1>
                 </div>
                 <StatusWithHooks status={props.status} updateStatus={props.updateStatusThunk} />
-                <div>
-                    {props.profile.aboutMe}
-                </div>
+                {/*<div>*/}
+                {/*    {props.profile.aboutMe}*/}
+                {/*</div>*/}
+                <ProfileInfo profile={props.profile} isOwner={props.isOwner} />
             </div>
-            <div className={styles.newPost}>
+            <div className={styles.newPost} onSubmit={addPost}>
                 <PostReduxForm onSubmit={addPost} />
             </div>
             <div className={styles.posts}>

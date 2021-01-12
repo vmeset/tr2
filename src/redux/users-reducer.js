@@ -15,6 +15,7 @@ let initialState = {
     currentPage: 1,
     isFetching: true,
     followProgress: [],
+    // че за фоллоу прогресс ??????????
     portionSize: 10
 }
 
@@ -60,6 +61,7 @@ let usersReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             }
+            // ??????????????????????????????????????????????????????????????????????????????????
         case SET_TOGGLE_FOLLOW: {
             return {
                 ...state,
@@ -67,6 +69,7 @@ let usersReducer = (state = initialState, action) => {
                     ? [...state.followProgress, action.userID]
                     : state.followProgress.filter(id => id != action.userID)
             }
+            // ??????????????????????????????????????????????????????????????????????????????????
         }
         default:
             return state
@@ -85,7 +88,6 @@ export const setTotalUsers = (totalUsers) => ({type: SET_TOTAL_PAGES, totalUsers
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 export const toggleFollowProgress = (isFetching, userId) => ({type: SET_TOGGLE_FOLLOW, isFetching, userId})
-
 export const getUsers = (pageSize, currentPage) => {
     return (dispatch) => {
         dispatch(setIsFetching(true))
@@ -96,7 +98,6 @@ export const getUsers = (pageSize, currentPage) => {
         })
     }
 }
-
 export const unFollowThunk = (userID) => {
     return (dispatch) => {
         dispatch(toggleFollowProgress(true, userID))
@@ -108,7 +109,6 @@ export const unFollowThunk = (userID) => {
         })
     }
 }
-
 export const followThunk = (userID) => {
     return (dispatch) => {
         dispatch(toggleFollowProgress(true, userID))

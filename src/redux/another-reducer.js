@@ -34,7 +34,6 @@ let anotherReducer = (state = initState, action) => {
 
 export const setUserAvatar = (avatar) => ({type: SET_AVATAR, avatar})
 export const setProf = (prof) => ({type: SET_PROF, prof})
-
 export const setAvatarThunk = (userId) => {
     return (dispatch) => {
         usersAPI.setUserProfile(userId).then(response => {
@@ -42,11 +41,6 @@ export const setAvatarThunk = (userId) => {
             dispatch(setUserAvatar(response.data.photos.large))
         })
     }
-}
-
-
-export const setUserFeatures = () => {
-
 }
 
 export default anotherReducer

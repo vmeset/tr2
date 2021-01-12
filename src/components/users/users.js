@@ -13,7 +13,7 @@ let Users = (props) => {
                     <div id={u.id}>
                         <NavLink to={"/profile/" + u.id}>
                             <img src={u.photos.small != null ? u.photos.small
-                                : 'https://c7.hotpng.com/preview/870/943/660/anonymous-computer-icons-security-hacker-avatar-anonymous.jpg'}/>
+                                : 'https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/anonymous-512.png'}/>
                         </NavLink>
                         <div>
                             {u.name}

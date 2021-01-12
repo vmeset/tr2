@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/preloader";
 import Settings from "./components/settings/settings";
+import MyForms from "./components/forms/myForms";
 
 class App extends React.Component {
     componentDidMount() {
@@ -35,6 +36,9 @@ class App extends React.Component {
                         </Route>
                         <Route path='/another'>
                             <AnotherContainer/>
+                        </Route>
+                        <Route path='/myForms'>
+                            <MyForms />
                         </Route>
                         <Route path='/login'>
                             <Login/>

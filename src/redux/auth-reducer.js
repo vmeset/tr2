@@ -25,23 +25,7 @@ let authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (id, email, login, isAuth) => ({
-    type: SET_USER_DATA,
-    payload: {id, email, login, isAuth}
-})
-
-export const authThunk = () => (dispatch) => {
-    return authAPI.setAuth().then(response => {
-        if (response.data.resultCode === 0) {
-            let {id, email, login} = response.data.data
-            dispatch(setAuthUserData(id, email, login, true))
-        }
-    })
-}
-
-
 export const loginThunk = (email, password) => (dispatch) => {
-
     authAPI.login(email, password).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(authThunk())
@@ -51,7 +35,6 @@ export const loginThunk = (email, password) => (dispatch) => {
         }
     })
 }
-
 export const logoutThunk = () => (dispatch) => {
     authAPI.logout().then(response => {
         if (response.data.resultCode === 0) {
@@ -59,5 +42,17 @@ export const logoutThunk = () => (dispatch) => {
         }
     })
 }
+export const authThunk = () => (dispatch) => {
+    return authAPI.setAuth().then(response => {
+        if (response.data.resultCode === 0) {
+            let {id, email, login} = response.data.data
+            dispatch(setAuthUserData(id, email, login, true))
+        }
+    })
+}
+export const setAuthUserData = (id, email, login, isAuth) => ({
+    type: SET_USER_DATA,
+    payload: {id, email, login, isAuth}
+})
 
 export default authReducer

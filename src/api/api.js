@@ -4,9 +4,16 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
-        'API-KEY': '0e2a91fd-5f5a-4f6c-ad90-9be789b4c9a8'
+        'API-KEY': 'e2b59ebb-c1c8-417b-a15c-0776fcdffa6a'
     }
 })
+
+export const loginizator = {
+    loginus(email, password) {
+        return instance.post(`auth/login`)
+    }
+}
+
 
 export const usersAPI = {
     getUsers(pageSize = 10, currentPage = 1) {
@@ -43,6 +50,8 @@ export const profileAPI = {
         return instance.put(`profile/status/`, {status: status})
     },
     uploadNewPhoto(newPhoto) {
-        return instance.put(`profile/photo`, {image: newPhoto})
+        const formData = new FormData();
+        formData.append("Image", newPhoto)
+        return instance.put(`profile/photo`, formData)
     }
 }

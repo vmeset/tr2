@@ -13,6 +13,9 @@ const Navbar = () => {
                 <NavLink to='/another'>another page</NavLink>
             </div>
             <div>
+                <NavLink to='/myForms'>my forms</NavLink>
+            </div>
+            <div>
                 <NavLink to='/settings'>Settings</NavLink>
             </div>
         </div>

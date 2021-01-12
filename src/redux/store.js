@@ -12,11 +12,13 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     auth: authReducer,
     anotherPage: anotherReducer,
-    form: formReducer,
+    form: formReducer, // обязательный редьюсер для редакс форм
     app: appReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware))
+
+// applyMiddleware(thunkMiddleware) для асинхронных экшенов, например для АПИшки
 
 window.store = store
 
